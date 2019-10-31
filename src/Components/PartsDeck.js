@@ -5,7 +5,7 @@ class MyPartsDeck extends React.Component {
   render() {
     return (
       <div className="MyPartsDeck">
-        poops
+        
       </div>
     );
   }

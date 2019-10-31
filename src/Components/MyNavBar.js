@@ -6,7 +6,7 @@ class MyNavBar extends React.Component {
   render() {
     return (
       <div className="MyNavBar">
-      <Navbar bg="dark" variant="dark">
+      <Navbar variant="light" className="InNavBar">
         <Navbar.Brand href="#home">Example GUI</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link> New </Nav.Link>

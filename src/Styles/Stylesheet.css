@@ -1,0 +1,25 @@
+
+.TopDash {
+  height: 20vh;
+  width: 100vw;
+  background-color: rgba(209, 207, 203, 1);
+}
+
+.LeftBar {
+  width: 20vw;
+  background-color: rgba(227, 226, 225, 1);
+  float: left;
+  height: 73vh;
+}
+
+.CanvasWrapper {
+  margin-left: 20vw;
+  width: 80vw;
+  background-color: rgba(102, 101, 99, 1);
+  height: 73vh;
+}
+
+.InNavBar {
+  background-color: rgba(124, 196, 142, 1);
+  height: 7vh;
+}

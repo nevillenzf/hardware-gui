@@ -1,7 +1,8 @@
 import React from 'react';
 
 class CanvasWrapper extends React.Component {
-  //In this component include navbar on the top, scrolling section
+  //This Component is the wrapper class for the fabric canvas that is going to be held inside
+  
   render() {
     return (
       <div className="CanvasWrapper">

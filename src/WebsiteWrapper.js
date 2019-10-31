@@ -1,7 +1,8 @@
 import React from 'react';
 import MyNavBar from './Components/MyNavBar';
-import PartsDeck from './Components/PartsDeck';
+import TopDash from './Components/TopDash';
 import LeftBar from './Components/LeftBar';
+import {Row} from 'react-bootstrap';
 import CanvasWrapper from './Components/CanvasWrapper';
 
 
@@ -13,10 +14,11 @@ class WebsiteWrapper extends React.Component {
       <div className="WebsiteWrapper">
 
         < MyNavBar />
-        < PartsDeck />
-        < LeftBar />
-        < CanvasWrapper />
-
+        < TopDash />
+        <div>
+          < LeftBar />
+          < CanvasWrapper />
+        </div>
       </div>
     );
   }

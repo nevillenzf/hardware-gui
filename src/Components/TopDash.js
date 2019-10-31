@@ -1,17 +1,17 @@
 import React from 'react';
-import ComponentList from './ComponentList';
+import PartsDeck from './PartsDeck';
 import '../Styles/Stylesheet.css';
 
-class LeftBar extends React.Component {
+class TopDash extends React.Component {
   //In this component include navbar on the top, scrolling section
   render() {
     return (
-      <div className="LeftBar">
-        <ComponentList />
+      <div className="TopDash">
+        <PartsDeck />
       </div>
     );
   }
 
 }
 
-export default LeftBar;
+export default TopDash;
