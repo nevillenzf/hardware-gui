@@ -1,5 +1,6 @@
 import React from 'react';
 import {fabric} from 'fabric';
+import canvasImage from '../Images/Grid.png';
 
 class MyCanvas extends React.Component {
   //This Component is the actual fabric canvas
@@ -17,7 +18,7 @@ class MyCanvas extends React.Component {
     // Make a New Canvas
     this.canvas = new fabric.Canvas('main-canvas', {width: this.props.width,
                                                     height: this.props.height,
-                                                    backgroundColor: "rgb(215, 219, 216)"});
+                                                    backgroundColor: { source: canvasImage, repeat: 'repeat' }});
     this.canvas.add(new fabric.Rect({ height: 100, width: 100 }))
     this.calculateCanvasSize();
     this.forceUpdate();
