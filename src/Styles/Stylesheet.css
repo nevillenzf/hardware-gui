@@ -2,7 +2,8 @@
 .TopDash {
   height: 20vh;
   width: 100vw;
-  background-color: rgba(209, 207, 203, 1);
+  background-color: rgba(102, 101, 99, 1);
+  overflow-x: scroll;
 }
 
 .LeftBar {
@@ -15,11 +16,19 @@
 .CanvasWrapper {
   margin-left: 20vw;
   width: 80vw;
-  background-color: rgba(102, 101, 99, 1);
+  background-color: rgba(209, 207, 203, 1);
   height: 73vh;
 }
 
 .InNavBar {
   background-color: rgba(124, 196, 142, 1);
   height: 7vh;
+}
+
+.ProjectName {
+  color: rgba(0, 0, 0, 0.3);
+  bottom: 5px;
+  right: 5px;
+  position: absolute;
+  font-size: 25px;
 }

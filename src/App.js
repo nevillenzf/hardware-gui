@@ -1,5 +1,7 @@
 import React from 'react';
 import WebsiteWrapper from './WebsiteWrapper';
+import 'fabric-webpack'
+
 import './App.css';
 
 class App extends React.Component {
