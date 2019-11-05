@@ -47,6 +47,10 @@
   padding: 5px;
 }
 
+.PartCard:hover {
+  cursor: pointer;
+}
+
 .PartWindow {
   border-radius: 15%;
   background-color: white;
