@@ -1,5 +1,7 @@
 import React from 'react';
 import {ListGroup} from 'react-bootstrap';
+import {connect} from 'react-redux';
+import ComponentItem from './ComponentItem';
 
 class ComponentList extends React.Component {
   //In this component include navbar on the top, scrolling section
@@ -7,35 +9,29 @@ class ComponentList extends React.Component {
     return (
       <div className="ComponentList">
         <ListGroup>
-          <ListGroup.Item action variant="dark">
-            Primary
-          </ListGroup.Item>
-          <ListGroup.Item action variant="dark">
-            Secondary
-          </ListGroup.Item>
-          <ListGroup.Item action variant="dark">
-            Success
-          </ListGroup.Item>
-          <ListGroup.Item action variant="dark">
-            Danger
-          </ListGroup.Item>
-          <ListGroup.Item action variant="dark">
-            Warning
-          </ListGroup.Item>
-          <ListGroup.Item action variant="dark">
-            Info
-          </ListGroup.Item>
-          <ListGroup.Item action variant="dark">
-            Light
-          </ListGroup.Item>
-          <ListGroup.Item action variant="dark">
-            Dark
-          </ListGroup.Item>
+        {this.props.myCompList.map((comp, compIndex) => {
+          return (
+              <ComponentItem
+              key={compIndex}
+              name= {comp["comp"]}
+              passed_key= {comp["id"]}
+             />
+        )
+      })}
         </ListGroup>
       </div>
     );
   }
 
 }
+
+const mapStateToProps = state => {
+  return {
+    canvas: state.myCanvas,
+    myCompList: state.myCompList,
+  }
+}
+
+ComponentList = connect(mapStateToProps)(ComponentList);
 
 export default ComponentList;
