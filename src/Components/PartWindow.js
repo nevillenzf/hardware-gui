@@ -12,8 +12,7 @@ class PartWindow extends React.Component {
           <Tooltip id={`tooltip-${"bottom"}`}>
             {this.props.desc}
           </Tooltip> }
-
-    >
+      >
       <div className="PartWindow">
         {this.props.name}
       </div>

@@ -50,16 +50,24 @@ class ComponentItem extends React.Component {
   deleteComponent(e) {
     e.stopPropagation();
     for (var i = 0; i < this.props.canvas._objects.length; i++){
-      if (this.props.canvas._objects[i].name === this.props.name &&
-          this.props.canvas._objects[i].id === this.props.passed_key)
+      var obj = this.props.canvas._objects[i];
+      if (obj.name === this.props.name &&
+          obj.id === this.props.passed_key)
       {
         console.log("Removed " + this.props.name + ", id: " + this.props.id)
-        //Removed from Canvas
-        this.props.canvas.remove(this.props.canvas._objects[i]);
+        //Remove ports and also the object
+        this.props.canvas.remove( obj.port.input,
+                                  obj.port.output,
+                                  obj)
+
         this.props.canvas.renderAll();
 
         //Removing from myCompList
         store.dispatch({type: "REMOVE_COMP", comp: this.props.name, id: this.props.passed_key});
+
+        //Close info window when something is deleted
+        store.dispatch({type: "SHOW_INFO_WINDOW", show: false});
+
 
       }
     }

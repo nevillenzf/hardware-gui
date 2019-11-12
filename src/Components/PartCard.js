@@ -25,6 +25,7 @@ class PartCard extends React.Component {
     return (
       <div  className="PartCard"
             onClick={this.addComponent}>
+
         <PartWindow name={this.props.name}
                     desc={this.props.desc}
                     passed_key={this.props.passed_key}

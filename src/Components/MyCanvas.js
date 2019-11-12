@@ -18,7 +18,7 @@ class MyCanvas extends React.Component {
 
   keyUpKing = (event) => {
     if(event.key === 'Enter'){
-      console.log('enter press here! ')
+      console.log(this.canvas)
     }
     else if (event.key === "Backspace")
     {
@@ -31,7 +31,8 @@ class MyCanvas extends React.Component {
         store.dispatch({type: "REMOVE_COMP", comp: active[i].name, id: active[i].id});
 
         //In the future take into account editing
-        this.canvas.remove(active[i]);
+        //Remove all ports and the object
+        this.canvas.remove(active[i].port.input, active[i].port.output, active[i]);
         this.props.canvas.renderAll();
       }
     }
@@ -54,8 +55,15 @@ class MyCanvas extends React.Component {
     }
   }
 
-  setCanvasToRedux(canvas) {
+  selectionListener = (event) => {
+    //Only allows for single object selection
+    if (this.canvas.getActiveObjects().length === 1)
+    {
+      console.log(this.canvas.getActiveObjects()[0].left + ", " + this.canvas.getActiveObjects()[0].top)
+    }
+  }
 
+  setCanvasToRedux(canvas) {
     setTimeout(()=>{store.dispatch({type: "UPDATE_CANVAS", canvas: canvas});
                     this.forceUpdate()},200);
   }
@@ -82,6 +90,12 @@ class MyCanvas extends React.Component {
     canvasWrapper.tabIndex = 1000;
     canvasWrapper.addEventListener("keydown", (e) => this.keyUpKing(e) , false);
     canvasWrapper.addEventListener("click", (e) => this.mouseEventKing(e) , false);
+
+    //Created - initial selection instance
+    //Updated - is when something is selected, and something else is then selected
+    this.canvas.on("selection:updated", (e)=>this.selectionListener(e));
+    this.canvas.on("selection:created", (e)=>this.selectionListener(e));
+
 
   }
 

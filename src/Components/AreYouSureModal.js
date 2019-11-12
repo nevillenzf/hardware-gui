@@ -5,10 +5,6 @@ import {connect} from 'react-redux';
 
 class AreYouSureModal extends React.Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   render()
   {
     return(
