@@ -12,11 +12,46 @@ class MyCanvas extends React.Component {
     this.canvas = null;
     this.addObject = this.addObject.bind(this);
     this.setCanvasToRedux = this.setCanvasToRedux.bind(this);
+    this.keyUpKing = this.keyUpKing.bind(this);
+    this.mouseEventKing = this.mouseEventKing.bind(this);
   }
 
-  calculateCanvasSize() {
-    //console.log(window.innerHeight)
-    //console.log(window.innerWidth)
+  keyUpKing = (event) => {
+    if(event.key === 'Enter'){
+      console.log('enter press here! ')
+    }
+    else if (event.key === "Backspace")
+    {
+      //Check canvas for active object then delete from everywhere
+      var active = this.canvas.getActiveObjects();
+
+      for (var i = 0 ; i < active.length; i++)
+      {
+        //Removing from myCompList
+        store.dispatch({type: "REMOVE_COMP", comp: active[i].name, id: active[i].id});
+
+        //In the future take into account editing
+        this.canvas.remove(active[i]);
+        this.props.canvas.renderAll();
+      }
+    }
+
+  }
+
+  mouseEventKing = (event) => {
+    //Only evaluate if info window is present
+    if (this.props.show)
+    {
+      if (this.props.canvas.getActiveObjects().length < 1)
+      {
+        store.dispatch({type: "SHOW_INFO_WINDOW", show: false});
+      }
+      else {
+        store.dispatch({type: "SHOW_INFO_WINDOW", show: false});
+        store.dispatch({type: "SHOW_INFO_WINDOW", show: true});
+
+      }
+    }
   }
 
   setCanvasToRedux(canvas) {
@@ -42,17 +77,26 @@ class MyCanvas extends React.Component {
                                                     backgroundColor: { source: canvasImage, repeat: 'repeat' }});
     //this.canvas.add(new fabric.Rect({ height: 100, width: 100 }))
 
-    this.setCanvasToRedux(this.canvas)
+    this.setCanvasToRedux(this.canvas);
+    var canvasWrapper = document.getElementsByClassName('MyCanvas')[0];
+    canvasWrapper.tabIndex = 1000;
+    canvasWrapper.addEventListener("keydown", (e) => this.keyUpKing(e) , false);
+    canvasWrapper.addEventListener("click", (e) => this.mouseEventKing(e) , false);
+
   }
 
-  componentDidUpdate() {
-    //this.setCanvasToRedux(this.canvas);
+  componentWillUnmount(){
+    var canvasWrapper = document.getElementById('main-canvas');
+
+    canvasWrapper.removeEventListener("keydown", (e) => this.keyUpKing(e) , false);
+    canvasWrapper.removeEventListener("onclick", (e) => this.mouseEventKing(e) , false);
+
   }
 
   render() {
     return (
-      <div className="MyCanvas">
-        <canvas id="main-canvas" z-index={-2}></canvas>
+      <div className="MyCanvas" >
+        <canvas id="main-canvas"></canvas>
       </div>
     );
   }
@@ -62,6 +106,7 @@ class MyCanvas extends React.Component {
 const mapStateToProps = state => {
   return {
     canvas: state.myCanvas,
+    show: state.showInfoWindow,
   }
 }
 

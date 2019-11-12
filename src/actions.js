@@ -2,6 +2,7 @@
 export const UPDATE_CANVAS = "UPDATE_CANVAS";
 export const UPDATE_COMP_LIST = "UPDATE_COMP_LIST";
 export const REMOVE_COMP = "REMOVE_COMP";
+export const SHOW_INFO_WINDOW = "SHOW_INFO_WINDOW";
 
 //Action creators
 export function updateCanvas(canvas) {
@@ -24,5 +25,12 @@ export function removeComponents(comp,id) {
     type: REMOVE_COMP,
     comp: comp,
     id: id
+  }
+}
+
+export function showInfoWindow(state) {
+  return {
+    type: SHOW_INFO_WINDOW,
+    show: state
   }
 }

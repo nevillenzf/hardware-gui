@@ -74,6 +74,15 @@
 
 }
 
+.ModuleInfoWindow {
+  position: fixed;
+  height: 65vh;
+  width: 20vw;
+  bottom: 5vh;
+  right: 2vh;
+  background-color: rgba(124, 196, 142, 1);
+}
+
 #main-canvas {
   background-image: url("/Images/Grid.png");
   background-repeat: repeat;

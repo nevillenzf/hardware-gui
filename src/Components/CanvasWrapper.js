@@ -1,6 +1,9 @@
 import React from 'react';
 import MyCanvas from './MyCanvas';
 import ProjectName from './ProjectName';
+import ModuleInfoWindow from './ModuleInfoWindow';
+
+import {connect} from 'react-redux';
 
 class CanvasWrapper extends React.Component {
   //This Component is the wrapper class for the fabric canvas that is going to be held inside
@@ -11,6 +14,7 @@ class CanvasWrapper extends React.Component {
       height: 0
     })
     this.renderCanvas = this.renderCanvas.bind(this);
+    this.renderModuleInfo = this.renderModuleInfo.bind(this);
   }
 
   componentDidMount(){
@@ -31,15 +35,35 @@ class CanvasWrapper extends React.Component {
     }
     //Else don't create anything
   }
+
+  renderModuleInfo(){
+    if (this.props.show)
+    {
+      return (
+        <ModuleInfoWindow />
+      )
+    }
+  }
+
   render() {
     return (
       <div className="CanvasWrapper">
         {this.renderCanvas()}
+        {this.renderModuleInfo()}
         <ProjectName name="test-circuit-#0.1"/>
       </div>
     );
   }
 
 }
+
+const mapStateToProps = state => {
+  return {
+    canvas: state.myCanvas,
+    show: state.showInfoWindow,
+  }
+}
+
+CanvasWrapper = connect(mapStateToProps)(CanvasWrapper);
 
 export default CanvasWrapper;

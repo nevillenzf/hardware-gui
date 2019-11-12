@@ -27,6 +27,13 @@ class ComponentItem extends React.Component {
         this.props.canvas.renderAll();
       }
     }
+
+    if (this.props.show)
+    {
+      store.dispatch({type: "SHOW_INFO_WINDOW", show: false});
+    }
+    setTimeout(()=>{store.dispatch({type: "SHOW_INFO_WINDOW", show: true});
+                    this.forceUpdate()},5);
   }
   renderDeleteButton() {
     if (this.state.showDeleteBtn)
@@ -80,6 +87,7 @@ class ComponentItem extends React.Component {
 const mapStateToProps = state => {
   return {
     canvas: state.myCanvas,
+    show: state.showInfoWindow,
   }
 }
 
