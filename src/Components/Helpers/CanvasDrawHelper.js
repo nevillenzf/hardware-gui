@@ -1,8 +1,8 @@
 import {fabric} from 'fabric';
 import store from '../../index';
-import { initLine, drawLine } from './ConnectHelper';
+import { initLine } from './ConnectHelper';
 
-const HEAD_SIZE = 10;
+export const HEAD_SIZE = 10;
 
 //Exported functio nto draw a component on the canvas, while rendering it in
 //the side bar
@@ -25,7 +25,9 @@ export function drawComponent(canvas,name,id) {
   }
   //Remove default controls
   obj.set({ hasControls: false });
-
+  //Set location
+  obj.set({top: canvas.height/(2 * canvas.getZoom()) - canvas.viewportTransform[4]/(2 * canvas.getZoom()),
+          left: canvas.width/(2 * canvas.getZoom()) - canvas.viewportTransform[5]/(2 * canvas.getZoom())})
   //Add custom controls
   addCustomControls(canvas, obj);
 
@@ -66,7 +68,7 @@ function updateControlsPos(obj) {
 
 }
 
-function addCustomControls(canvas,obj) {
+export function addCustomControls(canvas,obj) {
   //Create 2 rectangles on the sides of the obj
   var inputPort = new fabric.Rect({ height: HEAD_SIZE,
                                     width: HEAD_SIZE,
@@ -75,7 +77,8 @@ function addCustomControls(canvas,obj) {
                                     left: obj.left - HEAD_SIZE,
                                     fill: "rgba(124, 196, 142, 1)",
                                     type: "input",
-                                    parent: obj})
+                                    parent: obj,
+                                    })
 
   var outputPort = new fabric.Rect({ height: HEAD_SIZE,
                                     width: HEAD_SIZE,
@@ -91,7 +94,7 @@ function addCustomControls(canvas,obj) {
   inputPort.on("mousedblclick", (e)=> {showModule(obj, "double")});
 
   //Can drag output to another input
-  var line = outputPort.on("mousedown", (e)=> {initLine(canvas, outputPort,obj)});
+  outputPort.on("mousedown", (e)=> {initLine(canvas, outputPort,obj)});
 
   outputPort.on("mousedblclick", (e)=> {showModule(obj, "double")});
 
@@ -118,6 +121,8 @@ function drawSquare(canvas,name,id)  {
                                 transparentCorners: false,
                                 left: 200,
                                 top: 200,
+                                inputs: [],
+                                outputs: [],
                                 });
   //rect.set({"lockScaling" : true});
   console.log(rect);
@@ -129,7 +134,12 @@ function drawSquare(canvas,name,id)  {
 //Draws a circle on the top left corner of the canvas
 function drawCircle(canvas,name,id)  {
   //At the moment it adds it to the top left corner
-  var circ = new fabric.Circle({ radius: 100, fill:'red', name:name, id:id});
+  var circ = new fabric.Circle({  radius: 100,
+                                  fill:'red',
+                                  name:name,
+                                  id:id,
+                                  inputs: [],
+                                  outputs: [],});
   console.log(circ);
 
   return circ;
@@ -137,7 +147,12 @@ function drawCircle(canvas,name,id)  {
 
 function drawText(canvas,name,id)  {
   //At the moment it adds it to the top left corner
-  var text = new fabric.Text( name,{name:name, id:id, fontSize: 20, width: 100});
+  var text = new fabric.Text( name,{name:name,
+                                    id:id,
+                                    fontSize: 20,
+                                    width: 100,
+                                    inputs: [],
+                                    outputs: [],});
   console.log(text);
 
   return text;

@@ -2,6 +2,7 @@
 export const UPDATE_CANVAS = "UPDATE_CANVAS";
 export const UPDATE_COMP_LIST = "UPDATE_COMP_LIST";
 export const REMOVE_COMP = "REMOVE_COMP";
+export const CLEAR_COMP = "CLEAR_COMP";
 export const SHOW_INFO_WINDOW = "SHOW_INFO_WINDOW";
 
 //Action creators
@@ -25,6 +26,12 @@ export function removeComponents(comp,id) {
     type: REMOVE_COMP,
     comp: comp,
     id: id
+  }
+}
+
+export function clearComponents() {
+  return {
+    type: CLEAR_COMP,
   }
 }
 

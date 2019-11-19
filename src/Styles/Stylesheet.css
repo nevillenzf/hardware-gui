@@ -6,7 +6,10 @@
   z-index: 2;
 }
 
-.TopDash::-webkit-scrollbar { width: 0 !important }
+.TopDash::-webkit-scrollbar {
+  width: 0 !important;
+  height: 0 !important;
+}
 
 .LeftBar {
   width: 20vw;
@@ -25,7 +28,7 @@
 }
 
 .InNavBar {
-  background-color: rgba(124, 196, 142, 1);
+  background-color: rgba(245, 240, 108, 1);
   height: 7vh;
 }
 
@@ -84,6 +87,6 @@
 }
 
 #main-canvas {
-  background-image: url("/Images/Grid.png");
+  background-image: url("/Images/Grid-yellow.png");
   background-repeat: repeat;
 }

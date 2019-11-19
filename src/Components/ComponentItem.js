@@ -49,6 +49,8 @@ class ComponentItem extends React.Component {
 
   deleteComponent(e) {
     e.stopPropagation();
+    var deleted = false;
+
     for (var i = 0; i < this.props.canvas._objects.length; i++){
       var obj = this.props.canvas._objects[i];
       if (obj.name === this.props.name &&
@@ -62,14 +64,22 @@ class ComponentItem extends React.Component {
 
         this.props.canvas.renderAll();
 
-        //Removing from myCompList
-        store.dispatch({type: "REMOVE_COMP", comp: this.props.name, id: this.props.passed_key});
-
         //Close info window when something is deleted
         store.dispatch({type: "SHOW_INFO_WINDOW", show: false});
-
-
+        deleted = true;
       }
+      //Handles removing connections
+      else if ( obj.inputObj_id === this.props.passed_key ||
+                obj.outputObj_id === this.props.passed_key)
+      {
+        this.props.canvas.remove(obj);
+      }
+    }
+
+    if (deleted)
+    {
+        //Removing from myCompList
+        store.dispatch({type: "REMOVE_COMP", comp: this.props.name, id: this.props.passed_key});
     }
   }
 

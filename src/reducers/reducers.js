@@ -13,8 +13,13 @@ function myCompList(state = [], action) {
   }
   else if (action.type === actions.REMOVE_COMP)
   {
-    console.log(state)
+    //Remove a single component
     return state.filter((item) => item["id"] !== action.id);
+  }
+  else if (action.type === actions.CLEAR_COMP)
+  {
+    //return empty list
+    return [];
   }
 
   else return state;
