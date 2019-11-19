@@ -2,7 +2,7 @@ import React from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import AreYouSureModal from './AreYouSureModal';
-import { addCustomControls } from './Helpers/CanvasDrawHelper';
+import { addCustomControls, showModule } from './Helpers/CanvasDrawHelper';
 import { redrawLine } from './Helpers/ConnectHelper';
 import store from '../index';
 
@@ -63,6 +63,8 @@ class MyNavBar extends React.Component {
           {
             //Add custom controls for objects
             addCustomControls(canvas,obj);
+            obj.on("mousedblclick", (e)=> {showModule(obj, "double")});
+            obj.on("mousedown", (e)=> {showModule(obj, "single")});
             obj.set({inputs: [],
                     outputs: []})
             store.dispatch({type: "UPDATE_COMP_LIST", comp: obj.name, id: obj.id});

@@ -42,7 +42,7 @@ export function drawComponent(canvas,name,id) {
 }
 
 //Janky code to show module info in a info window
-function showModule(obj, option) {
+export function showModule(obj, option) {
   if (option === "double" )
   {
     store.dispatch({type: "SHOW_INFO_WINDOW", show: false});
