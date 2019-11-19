@@ -19,7 +19,9 @@ export function initLine(canvas, start, obj) {
       strokeWidth: 5,
       selectable: false,
       start_id: obj.id,
-      type: "line"})
+      type: "line",
+      opacity: 0.5
+    })
 
   var head = new fabric.Rect({
       left: start.left,
@@ -78,7 +80,7 @@ function restoreFunctions(canvas, line, head, start)
                                                     y2: obj.top + HEAD_SIZE/2})});
           line.setCoords();
           //outputObj records output port object
-          line.set({hoverCursor: "default", end_id: obj.parent.id});
+          line.set({hoverCursor: "default", end_id: obj.parent.id, opacity: 1});
           canvas.sendToBack(line);
 
           //Add connection to both input and output

@@ -2,8 +2,11 @@ import React from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import AreYouSureModal from './AreYouSureModal';
+import HelpModal from './HelpModal';
 import { addCustomControls, showModule } from './Helpers/CanvasDrawHelper';
 import { redrawLine } from './Helpers/ConnectHelper';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import store from '../index';
 
 
@@ -14,10 +17,12 @@ class MyNavBar extends React.Component {
     super(props);
     this.state = {
       show : false,
+      showHelp : false,
       file : null,
     };
 
     this.newCanvas = this.newCanvas.bind(this);
+    this.openHelp = this.openHelp.bind(this);
     this.loadCanvas = this.loadCanvas.bind(this);
     this.loadClick = this.loadClick.bind(this);
 
@@ -25,6 +30,8 @@ class MyNavBar extends React.Component {
 
   handleClose = () => {
     this.setState({show: false});
+    this.setState({showHelp: false});
+
   }
 
   newCanvas = () => {
@@ -36,6 +43,10 @@ class MyNavBar extends React.Component {
     else {
       window.location.reload();
     }
+  }
+
+  openHelp = () => {
+    this.setState({showHelp: true})
   }
 
   loadCanvas = (e) => {
@@ -141,14 +152,25 @@ class MyNavBar extends React.Component {
                   onChange={(e)=>{this.loadCanvas(e)}}/>
           <Nav.Link onClick={()=>{this.saveCanvas()}}> Save </Nav.Link>
           <Nav.Link> Export </Nav.Link>
-          <Nav.Link href="https://wicil.ece.wisc.edu/"> Who are We? </Nav.Link>
+          <Nav.Link href="https://wicil.ece.wisc.edu/" target="_blank"> Who are We? </Nav.Link>
         </Nav>
-        <div>
-          <AreYouSureModal  show={this.state.show}
-                            size="lg"
-                            onHide={this.handleClose}/>
-        </div>
+        <Nav id="outline-info">
+          <Nav.Link >
+            <button onClick={()=>{this.openHelp()}} className="helpBtn">
+              <FontAwesomeIcon icon={faQuestionCircle} size="lg"/>
+            </button>
+          </Nav.Link>
+        </Nav>
+
       </Navbar>
+      <div>
+        <AreYouSureModal  show={this.state.show}
+                          size="lg"
+                          onHide={this.handleClose}/>
+        <HelpModal  show={this.state.showHelp}
+                    size="lg"
+                    onHide={this.handleClose}/>
+      </div>
       </div>
     );
   }

@@ -1,7 +1,5 @@
 import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
-import store from '../index';
-import {connect} from 'react-redux';
 
 class AreYouSureModal extends React.Component {
 
@@ -10,8 +8,8 @@ class AreYouSureModal extends React.Component {
     return(
       <div>
         <Modal show={this.props.show} onHide= {this.props.onHide} size={this.props.size}>
-          <Modal.Header closeButton>
-            <Modal.Title>Save Changes?</Modal.Title>
+          <Modal.Header closeButton className="ModuleHeader">
+            <Modal.Title>New Canvas?</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
@@ -34,13 +32,5 @@ class AreYouSureModal extends React.Component {
     )
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    userInfo: state.userInfo,
-  }
-}
-
-AreYouSureModal = connect(mapStateToProps)(AreYouSureModal);
 
 export default AreYouSureModal;

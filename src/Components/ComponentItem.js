@@ -69,8 +69,8 @@ class ComponentItem extends React.Component {
         deleted = true;
       }
       //Handles removing connections
-      else if ( obj.inputObj_id === this.props.passed_key ||
-                obj.outputObj_id === this.props.passed_key)
+      else if ( obj.start_id === this.props.passed_key ||
+                obj.end_id === this.props.passed_key)
       {
         this.props.canvas.remove(obj);
       }

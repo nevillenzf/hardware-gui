@@ -71,10 +71,21 @@
 .deleteBtn {
   border: none;
   background-color: rgba(0,0,0,0);
-  color: black;
+  color: rgba(196, 30, 58, 1);
   padding: 0px;
   float: right;
+}
 
+.helpBtn {
+  background-color: rgba(1, 1, 1, 0);
+  border-color: rgba(1,1,1, 1);
+  border: none;
+  height: 30px;
+  width: 30px;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ModuleInfoWindow {
@@ -83,9 +94,12 @@
   width: 20vw;
   bottom: 5vh;
   right: 2vh;
-  background-color: rgba(245, 240, 108, 1);
+  background-color: rgba(255, 255, 255, 1);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 
+.ModuleHeader {
+  background-color: rgba(245, 240, 108, 1) !important;
 }
 
 #main-canvas {

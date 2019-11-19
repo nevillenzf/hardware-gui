@@ -46,7 +46,10 @@ class MyCanvas extends React.Component {
           this.props.canvas.renderAll();
         }
       }
-
+      if (this.props.show)
+      {
+        store.dispatch({type: "SHOW_INFO_WINDOW", show: false});
+      }
       //Deleting supporting canvas objects
 
     }
@@ -152,31 +155,16 @@ class MyCanvas extends React.Component {
   addPanZoomFunctions(canvas) {
     setTimeout(()=>{
       canvas.on('mouse:wheel', function(opt) {
-
         var delta = opt.e.deltaY;
-          var zoom = canvas.getZoom();
-          zoom = zoom + delta/400;
-          if (zoom > 5) zoom = 5;
-          if (zoom < 0.5) zoom = 0.5;
-          canvas.zoomToPoint({ x: opt.e.x, y: opt.e.y }, zoom);
-          opt.e.preventDefault();
-          opt.e.stopPropagation();
-          var vpt = this.viewportTransform;
-          if (zoom < 800 / 1000) {
-            this.viewportTransform[4] = 200 - 1000 * zoom / 2;
-            this.viewportTransform[5] = 200 - 1000 * zoom / 2;
-          } else {
-            if (vpt[4] >= 0) {
-              this.viewportTransform[4] = 0;
-            } else if (vpt[4] < canvas.getWidth() - 1000 * zoom) {
-              this.viewportTransform[4] = canvas.getWidth() - 1000 * zoom;
-            }
-            if (vpt[5] >= 0) {
-              this.viewportTransform[5] = 0;
-            } else if (vpt[5] < canvas.getHeight() - 1000 * zoom) {
-              this.viewportTransform[5] = canvas.getHeight() - 1000 * zoom;
-            }
-      }})
+        var pointer = canvas.getPointer(opt.e);
+        var zoom = canvas.getZoom();
+        zoom = zoom + delta/400;
+        if (zoom > 3) zoom = 3;
+        if (zoom < 0.5) zoom = 0.5;
+        canvas.zoomToPoint({ x: opt.e.offsetX, y: opt.e.offsetY }, zoom);
+        opt.e.preventDefault();
+        opt.e.stopPropagation();
+      });
       canvas.on('mouse:down', function(opt) {
         var evt = opt.e;
         if (evt.altKey === true) {

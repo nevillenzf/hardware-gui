@@ -75,9 +75,10 @@ export function addCustomControls(canvas,obj) {
                                     selectable: false,
                                     top: obj.top + obj.height/2,
                                     left: obj.left - HEAD_SIZE,
-                                    fill: "rgba(124, 196, 142, 1)",
+                                    fill: "rgba(0, 0, 0, 1)",
                                     type: "input",
                                     parent: obj,
+                                    cursor: "grab",
                                     })
 
   var outputPort = new fabric.Rect({ height: HEAD_SIZE,
@@ -85,9 +86,11 @@ export function addCustomControls(canvas,obj) {
                                     selectable: false,
                                     top: obj.top + obj.height/2,
                                     left: obj.left + obj.width,
-                                    fill: "rgba(124, 196, 142, 1)",
+                                    fill: "rgba(0, 0, 0, 1)",
                                     type: "output",
-                                    parent: obj})
+                                    parent: obj,
+                                    cursor: "grab",
+})
   //Add custom onclick functions
   //ON MOUSE DOWN
   inputPort.on("mousedown", (e)=> {canvas.setActiveObject(obj)});
