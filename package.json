@@ -10,8 +10,8 @@
     "fabric-webpack": "^1.6.0-rc.1",
     "react": "^16.11.0",
     "react-bootstrap": "^1.0.0-beta.14",
+    "react-contenteditable": "^3.3.2",
     "react-dom": "^16.11.0",
-    "react-fabricjs": "^0.1.6",
     "react-redux": "^7.1.1",
     "react-scripts": "3.2.0",
     "redux": "^4.0.4"

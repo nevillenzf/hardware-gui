@@ -1,5 +1,7 @@
 import React from 'react';
 import PartCard from './PartCard';
+import {connect} from 'react-redux';
+import store from '../index';
 
 class MyPartsDeck extends React.Component {
   //In this component include navbar on the top, scrolling section
@@ -16,13 +18,15 @@ class MyPartsDeck extends React.Component {
                           {name:"THING Gate", desc:"All inputs cannot be true or all inputs cannot be false"},
                           {name:"XOR Gate", desc:"All inputs cannot be true or all inputs cannot be false"}],
                           //Part Cards are defined by {id,name,description - popover}
-                   idCount: 0
                         })
     this.incrementIdCount = this.incrementIdCount.bind(this);
+
 }
 
 incrementIdCount(){
-  this.setState({idCount: this.state.idCount + 1});
+  //this.setState({idCount: this.state.idCount + 1});
+  store.dispatch({type: "INCREMENT_COUNTER"});
+
 }
 
   render() {
@@ -35,7 +39,7 @@ incrementIdCount(){
               name={parts["name"]}
               desc={parts["desc"]}
               passed_key={partsIndex}
-              count= {this.state.idCount}
+              count= {this.props.idCounter}
               increment = {this.incrementIdCount}
              />
         )
@@ -46,5 +50,13 @@ incrementIdCount(){
   }
 
 }
+
+const mapStateToProps = state => {
+  return {
+    idCounter: state.idCounter,
+  }
+}
+
+MyPartsDeck = connect(mapStateToProps)(MyPartsDeck);
 
 export default MyPartsDeck;

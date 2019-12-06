@@ -1,5 +1,4 @@
 import {fabric} from 'fabric';
-import store from '../../index';
 
 const HEAD_SIZE = 10;
 var isDrawing = false;
@@ -51,11 +50,12 @@ export function initLine(canvas, start, obj) {
 function drawLine(canvas, line, head, obj, pointer) {
   if (isDrawing)
   {
-    line.set({x2: pointer.x / canvas.getZoom() - canvas.viewportTransform[4]/ canvas.getZoom(),
-              y2: pointer.y / canvas.getZoom() - canvas.viewportTransform[5]/ canvas.getZoom()})
+    var zoom = canvas.getZoom();
+    line.set({x2: pointer.x / zoom - canvas.viewportTransform[4]/ zoom,
+              y2: pointer.y / zoom - canvas.viewportTransform[5]/ zoom})
     line.setCoords();
-    head.set({left: pointer.x / canvas.getZoom() - canvas.viewportTransform[4]/ canvas.getZoom(),
-              top: pointer.y / canvas.getZoom() - canvas.viewportTransform[5]/ canvas.getZoom()})
+    head.set({left: pointer.x / zoom - canvas.viewportTransform[4]/ zoom - HEAD_SIZE/(2 * zoom),
+              top: pointer.y / zoom - canvas.viewportTransform[5]/ zoom - HEAD_SIZE/(2 * zoom),})
     head.setCoords();
     canvas.renderAll();
   }
@@ -82,7 +82,7 @@ function restoreFunctions(canvas, line, head, start)
           //outputObj records output port object
           line.set({hoverCursor: "default", end_id: obj.parent.id, opacity: 1});
           canvas.sendToBack(line);
-
+          line.on("")
           //Add connection to both input and output
           start.set({outputs: [...start.outputs, line]})
           obj.parent.set({inputs: [...obj.parent.inputs, line]})

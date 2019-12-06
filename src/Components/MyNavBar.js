@@ -58,8 +58,14 @@ class MyNavBar extends React.Component {
     e.preventDefault();
     var reader = new FileReader();
     let canvas = this.props.canvas;
-    reader.addEventListener("load", function () {
+    reader.addEventListener("load", function (evt) {
+
       result = reader.result;
+      //Handle filename and update the redux state with the filename
+      let parsedNames = reader.fileName.split(".");
+      let fileName = parsedNames[0];
+      store.dispatch({type: "UPDATE_PROJECT_NAME", name: fileName});
+
       let parsed_result = JSON.parse(result)
       console.log(parsed_result)
       canvas.loadFromJSON(parsed_result);
@@ -68,6 +74,7 @@ class MyNavBar extends React.Component {
 
       setTimeout(function(){
         //Redraw port: output,input
+        let maxID = 0;
         for (let obj of canvas.getObjects())
         {
           if (obj.type !== "line")
@@ -79,8 +86,13 @@ class MyNavBar extends React.Component {
             obj.set({inputs: [],
                     outputs: []})
             store.dispatch({type: "UPDATE_COMP_LIST", comp: obj.name, id: obj.id});
-
+            //Save max ID and then output new as new idCounter
+            if (obj.id > maxID)
+            {
+              maxID = obj.id
+            }
           }
+          store.dispatch({type: "SET_COUNTER", new_num: maxID + 1});
         }
       }, 200);
 
@@ -102,6 +114,7 @@ class MyNavBar extends React.Component {
       }, false);
 
     if (e.target.files[0]) {
+    reader.fileName = e.target.files[0].name;
     reader.readAsText(e.target.files[0]);
     }
 
@@ -131,7 +144,7 @@ class MyNavBar extends React.Component {
     const blob = new Blob([fileData], {type: "text/plain"});
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.download = 'new_file.json';
+    link.download = this.props.projectName + '.json';
     link.href = url;
     link.click();
   }
@@ -181,6 +194,8 @@ const mapStateToProps = state => {
   return {
     canvas: state.myCanvas,
     myCompList: state.myCompList,
+    idCounter: state.idCounter,
+    projectName: state.projectName,
   }
 }
 

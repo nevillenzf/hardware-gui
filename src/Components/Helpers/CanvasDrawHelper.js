@@ -26,6 +26,7 @@ export function drawComponent(canvas,name,id) {
   //Remove default controls
   obj.set({ hasControls: false });
   //Set location
+
   obj.set({top: canvas.height/(2 * canvas.getZoom()) - canvas.viewportTransform[4]/(2 * canvas.getZoom()),
           left: canvas.width/(2 * canvas.getZoom()) - canvas.viewportTransform[5]/(2 * canvas.getZoom())})
   //Add custom controls
@@ -54,13 +55,13 @@ export function showModule(obj, option) {
 //Janky code to show module info in a info window
 function updateControlsPos(obj) {
   //console.log("spam")
-  obj.port.input.set({ top: obj.top + obj.height/2,
+  obj.port.input.set({ top: obj.top + obj.height/2 - HEAD_SIZE/2,
                       left: obj.left - HEAD_SIZE,
 
                       })
   obj.port.input.setCoords();
 
-  obj.port.output.set({ top: obj.top + obj.height/2,
+  obj.port.output.set({ top: obj.top + obj.height/2 - HEAD_SIZE/2,
                         left: obj.left + obj.width,})
   obj.port.output.setCoords();
 
@@ -73,23 +74,23 @@ export function addCustomControls(canvas,obj) {
   var inputPort = new fabric.Rect({ height: HEAD_SIZE,
                                     width: HEAD_SIZE,
                                     selectable: false,
-                                    top: obj.top + obj.height/2,
+                                    top: obj.top + obj.height/2 - HEAD_SIZE/2,
                                     left: obj.left - HEAD_SIZE,
                                     fill: "rgba(0, 0, 0, 1)",
                                     type: "input",
                                     parent: obj,
-                                    cursor: "grab",
+                                    hoverCursor: "grab",
                                     })
 
   var outputPort = new fabric.Rect({ height: HEAD_SIZE,
                                     width: HEAD_SIZE,
                                     selectable: false,
-                                    top: obj.top + obj.height/2,
+                                    top: obj.top + obj.height/2 - HEAD_SIZE/2,
                                     left: obj.left + obj.width,
                                     fill: "rgba(0, 0, 0, 1)",
                                     type: "output",
                                     parent: obj,
-                                    cursor: "grab",
+                                    hoverCursor: "grab",
 })
   //Add custom onclick functions
   //ON MOUSE DOWN

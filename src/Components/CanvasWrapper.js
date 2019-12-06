@@ -1,6 +1,7 @@
 import React from 'react';
 import MyCanvas from './MyCanvas';
 import ProjectName from './ProjectName';
+import CanvasCoords from './CanvasCoords';
 import ModuleInfoWindow from './ModuleInfoWindow';
 
 import {connect} from 'react-redux';
@@ -50,7 +51,7 @@ class CanvasWrapper extends React.Component {
       <div className="CanvasWrapper">
         {this.renderCanvas()}
         {this.renderModuleInfo()}
-        <ProjectName name="test-circuit-#0.1"/>
+        <ProjectName/>
       </div>
     );
   }

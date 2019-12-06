@@ -15,6 +15,10 @@ class MyCanvas extends React.Component {
     this.setCanvasToRedux = this.setCanvasToRedux.bind(this);
     this.keyUpKing = this.keyUpKing.bind(this);
     this.mouseEventKing = this.mouseEventKing.bind(this);
+    this.state = {
+      lastSelectedObj: null,
+      lastMovement: null
+    }
   }
 
   keyUpKing = (event) => {
@@ -91,9 +95,9 @@ class MyCanvas extends React.Component {
         var selectionGroup = this.canvas.getActiveObject();
         //Adding ports into selection group to be moved.
         objects[i].port.input.set({left: objects[i].left - HEAD_SIZE ,
-                                    top: objects[i].top + objects[i].height/2})
+                                    top: objects[i].top + objects[i].height/2 - HEAD_SIZE/2})
         objects[i].port.output.set({ left: objects[i].left + objects[i].width,
-                                      top: objects[i].top + objects[i].height/2})
+                                      top: objects[i].top + objects[i].height/2 - HEAD_SIZE/2})
 
         //Adding input lines into ports to be moved
         for (var obj of objects[i].inputs)
@@ -101,7 +105,6 @@ class MyCanvas extends React.Component {
           //take in the line's left top and compare with box's left top
           obj.set({ left: obj.left - selectionGroup.left - selectionGroup.width/2,
                     top: obj.top - selectionGroup.top - selectionGroup.height/2})
-          console.log(obj)
 
         }
         this.canvas.getActiveObject().add(objects[i].port.input,
@@ -111,40 +114,59 @@ class MyCanvas extends React.Component {
     }
   }
 
-  resetLinesPos = (event) => {
-    //Handle multiple objects selection for lines
-    for (let obj in this.canvas.getObjects())
+  setLastSelectedObj = (event) => {
+
+    this.setState({lastSelectedObj: this.canvas.getActiveObject()})
+    if (this.canvas.getActiveObject()._objects)
     {
-      //if actual component canvas object
-      if (obj.inputs && obj.outputs)
+      //DO THIS
+    }
+  }
+
+  afterDeselectLineReset = (event) => {
+
+
+    if (this.state.lastSelectedObj._objects)
+    {
+      console.log("group was selected")
+      //Handle multiple objects selection for lines
+      var newLeft = this.state.lastSelectedObj.left;
+      var newTop = this.state.lastSelectedObj.top;
+
+      for (let obj of this.state.lastSelectedObj._objects)
       {
-        //Reset line positions
-        obj.port.input.set({ top: obj.top + obj.height/2,
-                            left: obj.left - HEAD_SIZE,
+        //if actual component canvas object
 
-                            })
-        obj.port.input.setCoords();
-
-        obj.port.output.set({ top: obj.top + obj.height/2,
-                              left: obj.left + obj.width,})
-        obj.port.output.setCoords();
-
-
-        for (let connection in obj.inputs)
+        if (obj.inputs || obj.outputs)
         {
-          connection.set({x2: obj.port.input.left,
-                          y2: obj.port.input.top})
-          connection.setCoords();
-        }
+          for (let connection of obj.inputs)
+          {
+            console.log(newLeft)
+            console.log(newTop)
+            console.log(connection.left)
+            console.log(connection.top)
 
-        for (let connection in obj.outputs)
-        {
-          connection.set({x1: obj.port.output.left,
-                          y1: obj.port.output.top})
-          connection.setCoords();
+            // connection.set({
+            //   x2: obj.port.input.left + newLeft,
+            //   y2: obj.port.input.top + newTop,
+            // })
+            //connection.setCoords();
+
+          }
+
+          for (let connection of obj.outputs)
+          {
+            // connection.set({
+            //   x1: obj.port.output.left + newLeft,
+            //   y1: obj.port.output.top + newTop,
+            // })
+            //connection.setCoords();
+
+          }
         }
       }
     }
+
   }
 
   setCanvasToRedux(canvas) {
@@ -156,7 +178,7 @@ class MyCanvas extends React.Component {
     setTimeout(()=>{
       canvas.on('mouse:wheel', function(opt) {
         var delta = opt.e.deltaY;
-        var pointer = canvas.getPointer(opt.e);
+        //var pointer = canvas.getPointer(opt.e);
         var zoom = canvas.getZoom();
         zoom = zoom + delta/400;
         if (zoom > 3) zoom = 3;
@@ -194,6 +216,8 @@ class MyCanvas extends React.Component {
           if (obj.inputs && obj.outputs)
           {
             obj.setCoords();
+            obj.port.input.setCoords();
+            obj.port.output.setCoords();
           }
         }
       });
@@ -226,7 +250,10 @@ class MyCanvas extends React.Component {
     //Updated - is when something is selected, and something else is then selected
     this.canvas.on("selection:updated", (e)=>this.selectionListener(e));
     this.canvas.on("selection:created", (e)=>this.selectionListener(e));
-    this.canvas.on("selection:cleared", (e)=>this.resetLinesPos(e));
+    this.canvas.on("before:selection:cleared", (e)=>this.setLastSelectedObj(e));
+
+    this.canvas.on("selection:cleared", (e)=>this.afterDeselectLineReset(e));
+
     this.addPanZoomFunctions(this.canvas);
   }
 
