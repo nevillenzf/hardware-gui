@@ -1,7 +1,7 @@
 import React from 'react';
 import {OverlayTrigger, Tooltip} from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMicrochip } from '@fortawesome/free-solid-svg-icons'
+import { faMicrochip, faPlus } from '@fortawesome/free-solid-svg-icons'
 class PartWindow extends React.Component {
   //Check props for parts info
 
@@ -18,7 +18,7 @@ class PartWindow extends React.Component {
       <div className="PartWindow">
         <div className="ComponentContainer">
           <div className="ComponentPic">
-            <FontAwesomeIcon icon={faMicrochip} size="4x"/>
+            <FontAwesomeIcon icon={this.props.name === "Add a Module" ? faPlus :faMicrochip} size="4x"/>
           </div>
           <div className="ComponentPicLabel">
           </div>

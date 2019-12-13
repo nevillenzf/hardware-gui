@@ -9,6 +9,7 @@ class PartCard extends React.Component {
   constructor() {
     super();
     this.addComponent = this.addComponent.bind(this);
+    this.addNewComponent = this.addNewComponent.bind(this);
   }
 
   addComponent() {
@@ -21,17 +22,39 @@ class PartCard extends React.Component {
 
   }
 
-  render() {
-    return (
-      <div  className="PartCard"
-            onClick={this.addComponent}>
+  addNewComponent() {
+    //Draw square and assign name
+    //console.log(this.props);
+    this.props.openModal();
+  }
 
-        <PartWindow name={this.props.name}
-                    desc={this.props.desc}
-                    passed_key={this.props.passed_key}
-                    />
-      </div>
-    );
+  render() {
+    if (this.props.name === "Add a Module")
+    {
+      return (
+        <div  className="PartCard"
+              onClick={this.addNewComponent}>
+
+          <PartWindow name={this.props.name}
+                      desc={this.props.desc}
+                      passed_key={this.props.passed_key}
+                      />
+        </div>
+      )
+    }
+    else
+    {
+      return (
+        <div  className="PartCard"
+              onClick={this.addComponent}>
+
+          <PartWindow name={this.props.name}
+                      desc={this.props.desc}
+                      passed_key={this.props.passed_key}
+                      />
+        </div>
+      );
+    }
   }
 
 }

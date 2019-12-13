@@ -4,6 +4,18 @@ import * as actions from '../actions';
 const initCanvas = null;
 const initShowInfoWindow = false;
 const initName = "my-project-1";
+const initPartDeck = [{ name:"Module 1",
+                        desc:"All inputs cannot be true or all inputs cannot be false",
+                        inputs: 2, outputs: 5},
+                      { name:"Module 2",
+                        desc:"All inputs cannot be true or all inputs cannot be false",
+                        inputs: 15, outputs: 1},
+                      { name:"THING Gate",
+                        desc:"All inputs cannot be true or all inputs cannot be false",
+                        inputs: 1, outputs: 1},
+                      { name:"XOR Gate",
+                        desc:"All inputs cannot be true or all inputs cannot be false",
+                        inputs: 3, outputs: 3}];
 
 //0 means not signed in, 1 means signed in
 function myCompList(state = [], action) {
@@ -52,6 +64,22 @@ function myCanvas(state = initCanvas, action) {
   else return state;
 }
 
+function partDeck(state = initPartDeck, action) {
+  //Current Section Action
+  if (action.type === actions.UPDATE_PARTS)
+  {
+    //Update components list
+    return [...state, action.part];
+  }
+  else if (action.type === actions.REMOVE_PART)
+  {
+    //Remove a single component
+    return state.filter((item) => item["id"] !== action.id);
+  }
+
+  else return state;
+}
+
 function showInfoWindow(state = initShowInfoWindow, action) {
   //Current Section Action
   if (action.type === actions.SHOW_INFO_WINDOW)
@@ -77,7 +105,8 @@ const reducers = combineReducers({
   myCompList,
   showInfoWindow,
   idCounter,
-  projectName
+  projectName,
+  partDeck
 })
 
 export default reducers;

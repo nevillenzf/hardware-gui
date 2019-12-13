@@ -7,6 +7,9 @@ export const SHOW_INFO_WINDOW = "SHOW_INFO_WINDOW";
 export const INCREMENT_COUNTER = "INCREMENT_COUNTER";
 export const SET_COUNTER = "SET_COUNTER";
 export const UPDATE_PROJECT_NAME = "UPDATE_PROJECT_NAME";
+export const UPDATE_PARTS = "UPDATE_PARTS";
+export const REMOVE_PART = "REMOVE_PART";
+
 
 //Action creators
 export function updateCanvas(canvas) {
@@ -35,6 +38,13 @@ export function removeComponents(comp,id) {
 export function clearComponents() {
   return {
     type: CLEAR_COMP,
+  }
+}
+
+export function updateParts(part) {
+  return {
+    type: UPDATE_PARTS,
+    part: part,
   }
 }
 
