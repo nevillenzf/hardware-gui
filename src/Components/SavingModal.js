@@ -1,7 +1,7 @@
 import React from 'react';
 import {Modal, Button} from 'react-bootstrap';
 
-class AreYouSureModal extends React.Component {
+class SavingModal extends React.Component {
 
   render()
   {
@@ -33,4 +33,4 @@ class AreYouSureModal extends React.Component {
   }
 }
 
-export default AreYouSureModal;
+export default SavingModal;

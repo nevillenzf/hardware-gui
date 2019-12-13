@@ -1,7 +1,7 @@
 import React from 'react';
 import {Navbar, Nav} from 'react-bootstrap';
 import {connect} from 'react-redux';
-import AreYouSureModal from './AreYouSureModal';
+import SavingModal from './SavingModal';
 import HelpModal from './HelpModal';
 import { addCustomControls, showModule } from './Helpers/CanvasDrawHelper';
 import { redrawLine } from './Helpers/ConnectHelper';
@@ -177,7 +177,7 @@ class MyNavBar extends React.Component {
 
       </Navbar>
       <div>
-        <AreYouSureModal  show={this.state.show}
+        <SavingModal  show={this.state.show}
                           size="lg"
                           onHide={this.handleClose}/>
         <HelpModal  show={this.state.showHelp}
