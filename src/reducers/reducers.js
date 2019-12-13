@@ -4,17 +4,17 @@ import * as actions from '../actions';
 const initCanvas = null;
 const initShowInfoWindow = false;
 const initName = "my-project-1";
-const initPartDeck = [{ name:"Module 1",
-                        desc:"All inputs cannot be true or all inputs cannot be false",
+const initPartDeck = [{ name:"Example Module 2",
+                        desc:"This is the description text for this module",
                         inputs: 2, outputs: 5},
-                      { name:"Module 2",
-                        desc:"All inputs cannot be true or all inputs cannot be false",
+                      { name:"Example Module 1",
+                        desc:"This is the description text for this module",
                         inputs: 15, outputs: 1},
-                      { name:"THING Gate",
-                        desc:"All inputs cannot be true or all inputs cannot be false",
+                      { name:"Example Gate",
+                        desc:"This is the description text for this module",
                         inputs: 1, outputs: 1},
                       { name:"XOR Gate",
-                        desc:"All inputs cannot be true or all inputs cannot be false",
+                        desc:"This is the description text for this module",
                         inputs: 3, outputs: 3}];
 
 //0 means not signed in, 1 means signed in

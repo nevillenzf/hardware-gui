@@ -19,7 +19,7 @@ class SavingModal extends React.Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="success" onClick={() => window.location.reload()}>
+            <Button variant="primary" onClick={() => window.location.reload()}>
               New Canvas
             </Button>
 

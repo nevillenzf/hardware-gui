@@ -136,7 +136,7 @@ class NewComponentModal extends React.Component {
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="success" onClick={() => this.handleSubmit()}>
+            <Button variant="primary" onClick={() => this.handleSubmit()}>
               Create Component
             </Button>
 

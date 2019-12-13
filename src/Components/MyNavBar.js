@@ -153,7 +153,7 @@ class MyNavBar extends React.Component {
     return (
       <div className="MyNavBar">
       <Navbar variant="light" className="InNavBar">
-        <Navbar.Brand href="#home">Example GUI</Navbar.Brand>
+        <Navbar.Brand href="#home"> Flux </Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link onClick={()=>{this.newCanvas()}}> New </Nav.Link>
           <Nav.Link onClick={(e)=>{this.loadClick(e)}}> Load </Nav.Link>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {fabric} from 'fabric';
-import canvasImage from '../Images/Grid-yellow.png';
+import canvasImage from '../Images/Grid.png';
 import store from '../index';
 import {HEAD_SIZE} from './Helpers/CanvasDrawHelper';
 import {connect} from 'react-redux';
