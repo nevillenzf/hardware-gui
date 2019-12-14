@@ -4,10 +4,11 @@ import { initLine } from './ConnectHelper';
 
 export const HEAD_SIZE = 10;
 
-//Exported functio nto draw a component on the canvas, while rendering it in
+//Exported function to draw a component on the canvas, while rendering it in
 //the side bar
-export function drawComponent(canvas,name,id) {
+export function drawComponent(canvas,name,id, droppedCoords) {
   var obj;
+
   if (name === "Module 1")
   {
     obj = drawSquare(canvas,name,id);
@@ -25,8 +26,12 @@ export function drawComponent(canvas,name,id) {
   }
   //Remove default controls
   obj.set({ hasControls: false });
-  //Set location
 
+  //Set location
+  if (droppedCoords)
+  {
+    console.log("??")
+  }
   obj.set({top: canvas.height/(2 * canvas.getZoom()) - canvas.viewportTransform[4]/(2 * canvas.getZoom()),
           left: canvas.width/(2 * canvas.getZoom()) - canvas.viewportTransform[5]/(2 * canvas.getZoom())})
   //Add custom controls

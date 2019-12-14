@@ -23,21 +23,19 @@ class PartWindow extends React.Component {
         overlay={
           <Tooltip id={`tooltip-${"bottom"}`} className="partTooltip">
             {this.renderTooltip()}
-          </Tooltip> }
-      >
-      <div className="PartWindow">
-        <div className="ComponentContainer">
-          <div className="ComponentPic">
-            <FontAwesomeIcon icon={this.props.name === "Add a Module" ? faPlus :faMicrochip} size="4x"/>
+          </Tooltip> }>
+        <div className="PartWindow">
+          <div className="ComponentContainer">
+            <div className="ComponentPic">
+              <FontAwesomeIcon icon={this.props.name === "Add a Module" ? faPlus : faMicrochip} size="4x"/>
+            </div>
+            <div className="ComponentPicLabel">
+            </div>
           </div>
-          <div className="ComponentPicLabel">
+          <div className="ComponentName">
+          {this.props.name}
           </div>
         </div>
-        <div className="ComponentName">
-        {this.props.name}
-        </div>
-      </div>
-
       </OverlayTrigger>
     );
   }

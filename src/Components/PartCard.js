@@ -3,7 +3,7 @@ import PartWindow from './PartWindow'
 import {connect} from 'react-redux';
 import { drawComponent } from './Helpers/CanvasDrawHelper';
 import store from '../index';
-import { DragPreviewImage, useDrag } from 'react-dnd'
+import { DragSource } from 'react-dnd'
 
 class PartCard extends React.Component {
 
@@ -50,12 +50,11 @@ class PartCard extends React.Component {
         <div  className="PartCard"
               onClick={this.addComponent}>
 
-          <PartWindow name={this.props.name}
+          <PartThing name={this.props.name}
                       desc={this.props.desc}
                       inputs={this.props.inputs}
                       outputs={this.props.outputs}
-                      passed_key={this.props.passed_key}
-                      />
+                      passed_key={this.props.passed_key}/>
         </div>
       );
     }
@@ -70,6 +69,30 @@ const mapStateToProps = state => {
   }
 }
 
+const spec = {
+  beginDrag(props, monitor, component)
+  {
+    const item = {...props};
+    return item;
+  }
+}
+
+const collect = (connect, monitor) => {
+  return {
+    connectDragSource: connect.dragSource(),
+  }
+}
+
+const PartThing = DragSource("part-deck", spec, collect)(props => {
+  const { connectDragSource } = props;
+  return connectDragSource(<div><PartWindow name={props.name}
+              desc={props.desc}
+              inputs={props.inputs}
+              outputs={props.outputs}
+              passed_key={props.passed_key}
+              />
+            </div>)
+})
 PartCard = connect(mapStateToProps)(PartCard);
 
 export default PartCard;

@@ -2,9 +2,9 @@ import React from 'react';
 import {fabric} from 'fabric';
 import canvasImage from '../Images/Grid.png';
 import store from '../index';
-import {HEAD_SIZE} from './Helpers/CanvasDrawHelper';
+import {HEAD_SIZE, drawComponent} from './Helpers/CanvasDrawHelper';
 import {connect} from 'react-redux';
-
+import { DropTarget } from 'react-dnd';
 
 class MyCanvas extends React.Component {
   //This Component is the actual fabric canvas
@@ -267,9 +267,11 @@ class MyCanvas extends React.Component {
 
   render() {
     return (
+      this.props.connectDropTarget(
       <div className="MyCanvas" >
         <canvas id="main-canvas"></canvas>
       </div>
+      )
     );
   }
 
@@ -282,7 +284,33 @@ const mapStateToProps = state => {
   }
 }
 
+const spec = {
+  drop(props, monitor, component){
+    const item = monitor.getItem();
+    let state = store.getState();
+    // console.log(item)
+    // console.log(state)
+    let canvas = state.myCanvas
+    let name = item.name
+    let counter = state.idCounter
+    //store.getState to get current state of the redux store
+    drawComponent(canvas, name, counter, true);
+    store.dispatch({type: "UPDATE_COMP_LIST", comp: item.name, id: state.idCounter});
+    store.dispatch({type: "INCREMENT_COUNTER"});
+    canvas.renderAll();
+
+  },
+  hover(props, monitor, component){
+
+  }
+}
+
+const collect = (connect, monitor) =>{
+  return {
+    connectDropTarget: connect.dropTarget(),
+  }
+}
+
 MyCanvas = connect(mapStateToProps)(MyCanvas);
 
-
-export default MyCanvas;
+export default DropTarget('part-deck', spec, collect)(MyCanvas);
