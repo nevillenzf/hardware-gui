@@ -1,7 +1,8 @@
 import React from 'react';
 import WebsiteWrapper from './WebsiteWrapper';
-import 'fabric-webpack'
-
+import 'fabric-webpack';
+import { DndProvider } from 'react-dnd'
+import Backend from 'react-dnd-html5-backend'
 import './App.css';
 
 class App extends React.Component {
@@ -15,7 +16,10 @@ class App extends React.Component {
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
           crossOrigin="anonymous"
         />
-        <WebsiteWrapper/>
+        <DndProvider backend={Backend}>
+          <WebsiteWrapper/>
+        </DndProvider>
+
       </div>
     );
   }

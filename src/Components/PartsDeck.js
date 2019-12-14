@@ -8,16 +8,6 @@ class MyPartsDeck extends React.Component {
   //In this component include navbar on the top, scrolling section
   constructor() {
     super();
-    // parts:[{name:"Module 1", desc:"All inputs cannot be true or all inputs cannot be false"},
-    //                       {name:"Module 2", desc:"All inputs cannot be true or all inputs cannot be false"},
-    //                       {name:"Module 3", desc:"All inputs cannot be true or all inputs cannot be false"},
-    //                       {name:"Module 4", desc:"All inputs cannot be true or all inputs cannot be false"},
-    //                       {name:"Module 5", desc:"All inputs cannot be true or all inputs cannot be false"},
-    //                       {name:"Module 6", desc:"All inputs cannot be true or all inputs cannot be false"},
-    //                       {name:"Module 7", desc:"All inputs cannot be true or all inputs cannot be false"},
-    //                       {name:"Module 8", desc:"All inputs cannot be true or all inputs cannot be false"},
-    //                       {name:"THING Gate", desc:"All inputs cannot be true or all inputs cannot be false"},
-    //                       {name:"XOR Gate", desc:"All inputs cannot be true or all inputs cannot be false"}],
     this.state = ({ showModal: false})
     this.incrementIdCount = this.incrementIdCount.bind(this);
     this.handleClose = this.handleClose.bind(this);
@@ -40,7 +30,7 @@ incrementIdCount(){
 }
 
   render() {
-    var reversedParts = this.props.partDeck;
+    var reversedParts = [...this.props.partDeck];
     reversedParts.reverse();
     return (
       <div className="MyPartsDeck">
@@ -60,6 +50,8 @@ incrementIdCount(){
               key={partsIndex}
               name={parts["name"]}
               desc={parts["desc"]}
+              inputs={parts["inputs"]}
+              outputs={parts["outputs"]}
               passed_key={partsIndex}
               count= {this.props.idCounter}
               increment = {this.incrementIdCount}

@@ -3,6 +3,7 @@ import PartWindow from './PartWindow'
 import {connect} from 'react-redux';
 import { drawComponent } from './Helpers/CanvasDrawHelper';
 import store from '../index';
+import { DragPreviewImage, useDrag } from 'react-dnd'
 
 class PartCard extends React.Component {
 
@@ -14,6 +15,7 @@ class PartCard extends React.Component {
 
   addComponent() {
     //Draw square and assign name
+    //This time ar
     drawComponent(this.props.canvas, this.props.name, this.props.count);
     store.dispatch({type: "UPDATE_COMP_LIST", comp: this.props.name, id: this.props.count});
 
@@ -50,6 +52,8 @@ class PartCard extends React.Component {
 
           <PartWindow name={this.props.name}
                       desc={this.props.desc}
+                      inputs={this.props.inputs}
+                      outputs={this.props.outputs}
                       passed_key={this.props.passed_key}
                       />
         </div>

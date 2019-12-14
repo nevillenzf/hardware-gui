@@ -76,6 +76,11 @@ function partDeck(state = initPartDeck, action) {
     //Remove a single component
     return state.filter((item) => item["id"] !== action.id);
   }
+  else if (action.type === actions.CLEAR_PARTS)
+  {
+    //return empty list
+    return [];
+  }
 
   else return state;
 }

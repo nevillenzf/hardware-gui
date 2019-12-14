@@ -71,7 +71,11 @@ class MyNavBar extends React.Component {
       canvas.loadFromJSON(parsed_result);
       //remove everything from comp list
       store.dispatch({type: "CLEAR_COMP"});
-
+      store.dispatch({type: "CLEAR_PARTS"});
+      for (var item of parsed_result.partDeck)
+      {
+        store.dispatch({type: "UPDATE_PARTS", part: item});
+      }
       setTimeout(function(){
         //Redraw port: output,input
         let maxID = 0;
@@ -126,6 +130,7 @@ class MyNavBar extends React.Component {
     this.refs.fileUploader.click();
   }
 
+  //Saves the canvas and also the new components that were added.
   saveCanvas = () => {
     //Takes in a json file and loads it as a canvas instance
     console.log("Saving Canvas...")
@@ -138,7 +143,8 @@ class MyNavBar extends React.Component {
     var filtered = new_json.objects.filter(function(el) { return  el.type !== "output" &&
                                                                   el.type !== "input" });
     new_json.objects = filtered;
-    console.log(filtered);
+    new_json.partDeck = this.props.partDeck;
+    console.log(new_json);
     const fileData = JSON.stringify(new_json);
 
     const blob = new Blob([fileData], {type: "text/plain"});
@@ -153,7 +159,7 @@ class MyNavBar extends React.Component {
     return (
       <div className="MyNavBar">
       <Navbar variant="light" className="InNavBar">
-        <Navbar.Brand href="#home"> Flux </Navbar.Brand>
+        <Navbar.Brand href="#home"> Flux Web App </Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link onClick={()=>{this.newCanvas()}}> New </Nav.Link>
           <Nav.Link onClick={(e)=>{this.loadClick(e)}}> Load </Nav.Link>
@@ -196,6 +202,7 @@ const mapStateToProps = state => {
     myCompList: state.myCompList,
     idCounter: state.idCounter,
     projectName: state.projectName,
+    partDeck: state.partDeck
   }
 }
 

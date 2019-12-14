@@ -4,6 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMicrochip, faPlus } from '@fortawesome/free-solid-svg-icons'
 class PartWindow extends React.Component {
   //Check props for parts info
+  renderTooltip()
+  {
+    return(
+      <div className="tooltipInfoWrapper">
+        <div>{this.props.desc}</div>
+        {this.props.name !== "Add a Module" ? <div>{"Inputs: " + this.props.inputs}</div> : null}
+        {this.props.name !== "Add a Module" ? <div>{"Outputs: " + this.props.outputs}</div> : null}
+      </div>
+    )
+  }
 
   render() {
     return (
@@ -12,7 +22,7 @@ class PartWindow extends React.Component {
         placement={"bottom"}
         overlay={
           <Tooltip id={`tooltip-${"bottom"}`} className="partTooltip">
-            {this.props.desc}
+            {this.renderTooltip()}
           </Tooltip> }
       >
       <div className="PartWindow">

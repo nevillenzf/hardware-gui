@@ -180,6 +180,9 @@
   color: white;
 }
 
+.tooltipInfoWrapper {
+  text-align: left;
+}
 #main-canvas {
   background-image: url("/Images/Grid.png");
   background-repeat: repeat;

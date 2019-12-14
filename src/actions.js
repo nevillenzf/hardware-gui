@@ -3,6 +3,7 @@ export const UPDATE_CANVAS = "UPDATE_CANVAS";
 export const UPDATE_COMP_LIST = "UPDATE_COMP_LIST";
 export const REMOVE_COMP = "REMOVE_COMP";
 export const CLEAR_COMP = "CLEAR_COMP";
+export const CLEAR_PARTS = "CLEAR_PARTS";
 export const SHOW_INFO_WINDOW = "SHOW_INFO_WINDOW";
 export const INCREMENT_COUNTER = "INCREMENT_COUNTER";
 export const SET_COUNTER = "SET_COUNTER";
@@ -45,6 +46,12 @@ export function updateParts(part) {
   return {
     type: UPDATE_PARTS,
     part: part,
+  }
+}
+
+export function clearParts() {
+  return {
+    type: CLEAR_PARTS,
   }
 }
 
