@@ -16,7 +16,11 @@ class PartCard extends React.Component {
   addComponent() {
     //Draw square and assign name
     //This time ar
-    drawComponent(this.props.canvas, this.props.name, this.props.count);
+    var info = {name: this.props.name,
+                desc: this.props.desc,
+                inputs: this.props.inputs,
+                outputs: this.props.outputs}
+    drawComponent(this.props.canvas, info, this.props.count);
     store.dispatch({type: "UPDATE_COMP_LIST", comp: this.props.name, id: this.props.count});
 
     this.props.increment();

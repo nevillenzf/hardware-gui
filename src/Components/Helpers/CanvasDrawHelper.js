@@ -6,32 +6,29 @@ export const HEAD_SIZE = 10;
 
 //Exported function to draw a component on the canvas, while rendering it in
 //the side bar
-export function drawComponent(canvas,name,id, droppedCoords) {
+export function drawComponent(canvas,info,id) {
   var obj;
 
-  if (name === "Module 1")
+  if (info.name === "Module 1")
   {
-    obj = drawSquare(canvas,name,id);
+    obj = drawSquare(canvas,info,id);
   }
-  else if (name === "Module 2")
+  else if (info.name === "Module 2")
   {
-    obj = drawCircle(canvas,name,id);
+    obj = drawCircle(canvas,info,id);
   }
-  else if (name === "Module 3")
+  else if (info.name === "Module 3")
   {
-    obj = drawText(canvas,name,id);
+    obj = drawText(canvas,info,id);
   }
   else {
-    obj = drawText(canvas,name,id);
+    obj = drawText(canvas,info,id);
   }
   //Remove default controls
   obj.set({ hasControls: false });
 
   //Set location
-  if (droppedCoords)
-  {
-    console.log("??")
-  }
+
   obj.set({top: canvas.height/(2 * canvas.getZoom()) - canvas.viewportTransform[4]/(2 * canvas.getZoom()),
           left: canvas.width/(2 * canvas.getZoom()) - canvas.viewportTransform[5]/(2 * canvas.getZoom())})
   //Add custom controls
@@ -57,7 +54,7 @@ export function showModule(obj, option) {
 
 }
 
-//Janky code to show module info in a info window
+//Janky code to update peripheral shape positions - input, output ports
 function updateControlsPos(obj) {
   //console.log("spam")
   obj.port.input.set({ top: obj.top + obj.height/2 - HEAD_SIZE/2,
@@ -74,6 +71,7 @@ function updateControlsPos(obj) {
 
 }
 
+//Code to add shape peripherals - input and output port
 export function addCustomControls(canvas,obj) {
   //Create 2 rectangles on the sides of the obj
   var inputPort = new fabric.Rect({ height: HEAD_SIZE,
@@ -120,12 +118,14 @@ export function addCustomControls(canvas,obj) {
 }
 
 //Draws a square on the top left corner of the canvas
-function drawSquare(canvas,name,id)  {
+function drawSquare(canvas,info,id)  {
   //At the moment it adds it to the top left corner
   var rect = new fabric.Rect({ height: 100,
                                 width: 100,
-                                name:name,
-                                id:id,
+                                name: info.name,
+                                maxInputs: info.inputs,
+                                maxOutputs: info.outputs,
+                                id: id,
                                 cornerSize: 20,
                                 transparentCorners: false,
                                 left: 200,
@@ -141,11 +141,13 @@ function drawSquare(canvas,name,id)  {
 }
 
 //Draws a circle on the top left corner of the canvas
-function drawCircle(canvas,name,id)  {
+function drawCircle(canvas,info,id)  {
   //At the moment it adds it to the top left corner
   var circ = new fabric.Circle({  radius: 100,
                                   fill:'red',
-                                  name:name,
+                                  name:info.name,
+                                  maxInputs: info.inputs,
+                                  maxOutputs: info.outputs,
                                   id:id,
                                   inputs: [],
                                   outputs: [],});
@@ -154,12 +156,14 @@ function drawCircle(canvas,name,id)  {
   return circ;
 }
 
-function drawText(canvas,name,id)  {
+function drawText(canvas,info,id)  {
   //At the moment it adds it to the top left corner
-  var text = new fabric.Text( name,{name:name,
+  var text = new fabric.Text( info.name,{name:info.name,
                                     id:id,
                                     fontSize: 20,
                                     width: 100,
+                                    maxInputs: info.inputs,
+                                    maxOutputs: info.outputs,
                                     inputs: [],
                                     outputs: [],});
   console.log(text);

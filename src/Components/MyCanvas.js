@@ -226,10 +226,6 @@ class MyCanvas extends React.Component {
 
   //Add object to canvas defined by the module type here
   addObject(moduleType) {
-    if (moduleType === "xor_gate")
-    {
-      console.log(this.props.canvas)
-    }
     this.canvas.renderAll();
   }
 
@@ -288,13 +284,13 @@ const spec = {
   drop(props, monitor, component){
     const item = monitor.getItem();
     let state = store.getState();
-    // console.log(item)
+     console.log(item)
     // console.log(state)
     let canvas = state.myCanvas
-    let name = item.name
+    //let name = item.name
     let counter = state.idCounter
     //store.getState to get current state of the redux store
-    drawComponent(canvas, name, counter, true);
+    drawComponent(canvas, item, counter, true);
     store.dispatch({type: "UPDATE_COMP_LIST", comp: item.name, id: state.idCounter});
     store.dispatch({type: "INCREMENT_COUNTER"});
     canvas.renderAll();

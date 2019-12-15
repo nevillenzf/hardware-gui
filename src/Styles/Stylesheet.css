@@ -187,3 +187,25 @@
   background-image: url("/Images/Grid.png");
   background-repeat: repeat;
 }
+
+.helpFooter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between !important;
+}
+
+.CreatorWrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.socialIcon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.acknowledgement {
+  margin-right: 5px;
+}

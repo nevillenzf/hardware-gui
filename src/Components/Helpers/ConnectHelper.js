@@ -7,46 +7,52 @@ var restore = null;
 //Exported functio nto draw a component on the canvas, while rendering it in
 //the side bar
 export function initLine(canvas, start, obj) {
-  canvas.setActiveObject(obj)
-  var coords = [start.left, start.top, start.left +1, start.top + 1];
-  isDrawing = true;
-  //Line to show where everything is
-  //inputObj records the origin component of the connection
-  var line = new fabric.Line(coords ,{
-      fill: 'black',
-      stroke: 'black',
-      strokeWidth: 5,
-      selectable: false,
-      start_id: obj.id,
-      type: "line",
-      opacity: 0.5
-    })
-
-  var head = new fabric.Rect({
-      left: start.left,
-      top: start.top,
-      fill: 'black',
-      height: HEAD_SIZE,
-      width: HEAD_SIZE,
-      selectable: false,})
-
-  canvas.add(line);
-  canvas.add(head);
-
   canvas.selection = false;
-  console.log(head);
-  obj.on("moving", (e)=>{ line.set({x1: obj.port.output.left + HEAD_SIZE/2,
-                                    y1: obj.port.output.top + HEAD_SIZE/2})
-                          head.set({left: obj.port.output.left+ HEAD_SIZE/2,
-                                    top: obj.port.output.top})});
-  //update line position on mouse movement till mouse up
-  drawing = (e) => drawLine(canvas, line, head, obj, e.pointer)
-  restore = () => restoreFunctions(canvas, line, head, obj)
-  canvas.on("mouse:move", drawing)
-  canvas.on("mouse:up", restore)
+
+  if (obj.outputs.length < obj.maxOutputs)
+  {
+    canvas.setActiveObject(obj)
+    var coords = [start.left, start.top, start.left +1, start.top + 1];
+    isDrawing = true;
+    //Line to show where everything is
+    //inputObj records the origin component of the connection
+    var line = new fabric.Line(coords ,{
+        fill: 'black',
+        stroke: 'black',
+        strokeWidth: 5,
+        selectable: false,
+        start_id: obj.id,
+        type: "line",
+        opacity: 0.5
+      })
+
+    var head = new fabric.Rect({
+        left: start.left,
+        top: start.top,
+        fill: 'black',
+        height: HEAD_SIZE,
+        width: HEAD_SIZE,
+        selectable: false,})
+
+    canvas.add(line);
+    canvas.add(head);
+
+    canvas.selection = false;
+    console.log(head);
+    obj.on("moving", (e)=>{ line.set({x1: obj.port.output.left + HEAD_SIZE/2,
+                                      y1: obj.port.output.top + HEAD_SIZE/2})
+                            head.set({left: obj.port.output.left+ HEAD_SIZE/2,
+                                      top: obj.port.output.top})});
+    //update line position on mouse movement till mouse up
+    drawing = (e) => drawLine(canvas, line, head, obj, e.pointer)
+    restore = () => restoreFunctions(canvas, line, head, obj)
+    canvas.on("mouse:move", drawing)
+    canvas.on("mouse:up", restore)
+  }
 
 }
 
+//Rerenders the line on the canvas
 function drawLine(canvas, line, head, obj, pointer) {
   if (isDrawing)
   {
@@ -75,19 +81,21 @@ function restoreFunctions(canvas, line, head, start)
         //Only takes other inputs into account
         if (obj.type === "input" && start.port.input !== obj)
         {
-          console.log(obj.left + ", " + obj.top)
-          obj.parent.on("moving", (e)=>{ line.set({ x2: obj.left + HEAD_SIZE/2,
-                                                    y2: obj.top + HEAD_SIZE/2})});
-          line.setCoords();
-          //outputObj records output port object
-          line.set({hoverCursor: "default", end_id: obj.parent.id, opacity: 1});
-          canvas.sendToBack(line);
-          line.on("")
-          //Add connection to both input and output
-          start.set({outputs: [...start.outputs, line]})
-          obj.parent.set({inputs: [...obj.parent.inputs, line]})
+          if (obj.parent.inputs < obj.parent.maxInputs)
+          {
+            obj.parent.on("moving", (e)=>{ line.set({ x2: obj.left + HEAD_SIZE/2,
+                                                      y2: obj.top + HEAD_SIZE/2})});
+            line.setCoords();
+            //outputObj records output port object
+            line.set({hoverCursor: "default", end_id: obj.parent.id, opacity: 1});
+            canvas.sendToBack(line);
+            line.on("")
+            //Add connection to both input and output
+            start.set({outputs: [...start.outputs, line]})
+            obj.parent.set({inputs: [...obj.parent.inputs, line]})
 
-          found = true;
+            found = true;
+          }
         }
       }
 
