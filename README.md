@@ -1,5 +1,14 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Flux Web Application
+## A Hardware Visualization Tool
 
+## To Recreate the project on your local machine
+  1. Clone this github repository.
+  2. Make sure that you have **Node.js** and the **Node Package Manager (NPM)** installed. Otherwise, visit   https://www.npmjs.com/get-npm and follow the instructions given to install all necessary tools.
+  3. To make sure that **NPM** is installed with the latest version, type in ```npm --version``` and compare the version to the version that was listed [here](https://www.npmjs.com/get-npm).
+  4. Once the github repository is cloned on your local machine, ensure that you are in the root directory of the project folder (./), then run ```npm install``` in your terminal to install all necessary Node Packages.
+  5. At this point, you should be ready to run this application on your local machine with ```npm start```! Remember to run the command in the root directory!
+
+# Additional create-react-app commands
 ## Available Scripts
 
 In the project directory, you can run:
